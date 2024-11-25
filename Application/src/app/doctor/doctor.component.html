@@ -1,0 +1,55 @@
+
+<div class="container">
+  <h2>Doctors</h2>
+  <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Doctor Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+      <small *ngIf="doctorForm.controls['name'].invalid && doctorForm.controls['name'].touched" class="text-danger">
+        Name is required.
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Specialization</label>
+      <input type="text" class="form-control" formControlName="specialization" />
+      <small *ngIf="doctorForm.controls['specialization'].invalid && doctorForm.controls['specialization'].touched" class="text-danger">
+        Specialization is required.
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Availability</label>
+      <input type="text" class="form-control" formControlName="availability" />
+      <small *ngIf="doctorForm.controls['availability'].invalid && doctorForm.controls['availability'].touched" class="text-danger">
+        Availability is required.
+      </small>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">
+      {{ isEditMode ? 'Update' : 'Add' }} Doctor
+    </button>
+  </form>
+
+  <hr />
+  <h3>Doctors List</h3>
+  
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Specialization</th>
+        <th>Availability</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doctor of doctors">
+        <td>{{ doctor.name }}</td>
+        <td>{{ doctor.specialization }}</td>
+        <td>{{ doctor.availability }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editDoctor(doctor)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteDoctor(doctor.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

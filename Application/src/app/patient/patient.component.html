@@ -1,0 +1,96 @@
+
+<div class="container">
+  <h2>Patient Details</h2>
+  <form [formGroup]="patientForm" (ngSubmit)="addPatient()">
+    <div class="form-group">
+      <label>Name</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="name"
+        placeholder="Enter your name"
+      />
+      <small class="text-danger" *ngIf="patientForm.get('name')?.touched && patientForm.get('name')?.invalid">
+        Name is required and must be at least 3 characters long.
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Age</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="age"
+        placeholder="Enter your age"
+      />
+      <small class="text-danger" *ngIf="patientForm.get('age')?.touched && patientForm.get('age')?.invalid">
+        Age is required and must be between 1 and 120.
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Gender</label>
+      <select class="form-control" formControlName="gender">
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <small class="text-danger" *ngIf="patientForm.get('gender')?.touched && patientForm.get('gender')?.invalid">
+        Gender is required.
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="number"
+        placeholder="Enter your phone number"
+      />
+      <small class="text-danger" *ngIf="patientForm.get('number')?.touched && patientForm.get('number')?.invalid">
+        Phone number is required and must be 10 digits.
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        type="email"
+        class="form-control"
+        formControlName="email"
+        placeholder="abcd@gmail.com"
+      />
+      <small class="text-danger" *ngIf="patientForm.get('email')?.touched && patientForm.get('email')?.invalid">
+        Valid email is required.
+      </small>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4" >
+      {{ editPatient ? 'Update Patient' : 'Add Patient' }}
+    </button>
+  </form>
+
+  <hr />
+  <h3>Patient List</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of patients">
+        <td>{{ patient.name }}</td>
+        <td>{{ patient.age }}</td>
+        <td>{{ patient.gender }}</td>
+        <td>{{ patient.number }}</td>
+        <td>{{ patient.email }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editingPatient(patient)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deletePatient(patient.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

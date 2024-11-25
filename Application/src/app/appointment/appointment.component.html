@@ -1,0 +1,61 @@
+
+<div class="container">
+  <h2>Book Appointment</h2>
+  <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Patient Name</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="patientName"
+      />
+      <small *ngIf="appointmentForm.controls['patientName'].invalid && appointmentForm.controls['patientName'].touched" class="text-danger">
+        Patient name is required.
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Doctor</label>
+      <select class="form-control" formControlName="doctor">
+        <option *ngFor="let doctor of doctors" [value]="doctor.name">{{ doctor.name }}</option>
+      </select>
+      <small *ngIf="appointmentForm.controls['doctor'].invalid && appointmentForm.controls['doctor'].touched" class="text-danger">
+        Doctor selection is required.
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Date</label>
+      <input
+        type="date"
+        class="form-control"
+        formControlName="date"
+      />
+      <small *ngIf="appointmentForm.controls['date'].invalid && appointmentForm.controls['date'].touched" class="text-danger">
+        Appointment date is required.
+      </small>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Book</button>
+  </form>
+  <hr />
+  <h3>Upcoming Appointments</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of appointments">
+        <td>{{ appointment.patientName }}</td>
+        <td>{{ appointment.doctor }}</td>
+        <td>{{ appointment.date }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editAppointment(appointment)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteAppointment(appointment.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
